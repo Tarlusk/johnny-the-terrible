@@ -21,7 +21,7 @@ public abstract class Entity
 	
 	public abstract void draw(Graphics g);
 	
-	public abstract void update();
+	public abstract void update(int delta);
 	
 	public void setX( float x)
 	{
