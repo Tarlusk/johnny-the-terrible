@@ -14,8 +14,6 @@ import org.newdawn.slick.command.KeyControl;
 import org.newdawn.slick.command.MouseButtonControl;
 
 import entities.Block;
-import entities.Entity;
-import entities.MoveableEntity;
 
 public class JohnnyGame extends BasicGame implements InputProviderListener{
 
@@ -44,12 +42,6 @@ public class JohnnyGame extends BasicGame implements InputProviderListener{
 	private Command ddown = new BasicCommand("ddown");
 	private Command dleft = new BasicCommand("dleft");
 	private Command dright = new BasicCommand("dright");
-	
-	private Command c1 = new BasicCommand("c");
-	
-	
-	
-	
 	
 	private InputProvider provider;
 	
@@ -99,18 +91,9 @@ public class JohnnyGame extends BasicGame implements InputProviderListener{
     	provider.bindCommand(new ControllerButtonControl(0, 14), triangle);
     	provider.bindCommand(new ControllerButtonControl(0, 15), x);
     	provider.bindCommand(new ControllerButtonControl(0, 16), circle);
-    	
-    	
-    	
-    	
-    	
-    	
 
-
-    	
-		
 		block = new Block(200, 200, 0, 0);
-		gc.setMaximumLogicUpdateInterval(30);
+		gc.setMaximumLogicUpdateInterval(50);
 	}
 
 	@Override
