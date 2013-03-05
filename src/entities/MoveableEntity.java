@@ -7,9 +7,13 @@ public abstract class MoveableEntity extends Entity
 	
 	public MoveableEntity() {
 		super();
+		dx = 0;
+		dy = 0;
 	}
 	public MoveableEntity(float x, float y) {
 		super(x, y);
+		dx = 0;
+		dy = 0;
 	}
 
 	public void setDX( float dx)
