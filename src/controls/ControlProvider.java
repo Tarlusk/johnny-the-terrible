@@ -17,6 +17,8 @@ public class ControlProvider extends InputProvider{
 	public Command right = new BasicCommand("right");
 	public Command up = new BasicCommand("up");
 	public Command down = new BasicCommand("down");
+	public Command pause = new BasicCommand("pause");
+	public Command enter = new BasicCommand("enter");
 	
 	private Command select = new BasicCommand("select");
 	private Command start = new BasicCommand("start");
@@ -50,6 +52,7 @@ public class ControlProvider extends InputProvider{
         this.bindCommand(new KeyControl(Input.KEY_DOWN), down);
         this.bindCommand(new KeyControl(Input.KEY_S), down);
         this.bindCommand(new KeyControl(Input.KEY_SPACE), jump);
+        this.bindCommand(new KeyControl(Input.KEY_ESCAPE), pause);
 		
         this.bindCommand(new ControllerDirectionControl(0, ControllerDirectionControl.LEFT), left);
         this.bindCommand(new ControllerDirectionControl(0, ControllerDirectionControl.RIGHT), right);
