@@ -1,11 +1,8 @@
 package main;
 
-
-import javax.swing.JButton;
-
 import linear.Vector2d;
 
-import org.lwjgl.input.Mouse;
+//import org.lwjgl.input.Mouse;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.Color;
@@ -13,10 +10,8 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.UnicodeFont;
 import org.newdawn.slick.command.Command;
 import org.newdawn.slick.command.InputProviderListener;
-import org.newdawn.slick.Font;
 
 import controls.ControlProvider;
 
@@ -38,7 +33,7 @@ public class JohnnyGame extends BasicGame implements InputProviderListener{
 	private Circle sphere;
 	private Collider collider;
 	private int gameState = MAIN_MENU;
-	private MenuButton setupButton;
+	//private MenuButton setupButton;
 
 	private ControlProvider provider;
 	
@@ -65,7 +60,7 @@ public class JohnnyGame extends BasicGame implements InputProviderListener{
 		sphere = new Circle( 400, 360, 100);
 		ground = new Box (0,550,800,50);
 		gc.setMaximumLogicUpdateInterval(50);
-		setupButton = new MenuButton(100, 200, 200, 100);
+		//setupButton = new MenuButton(100, 200, 200, 100);
 	}
 
 	@Override
@@ -133,14 +128,14 @@ public class JohnnyGame extends BasicGame implements InputProviderListener{
 			}
 			break;
 		case MAIN_MENU:
-			if( Mouse.getX() >= setupButton.getX() && Mouse.getX() <= setupButton.getX() + setupButton.getWidth() && (gc.getHeight() - Mouse.getY()) >= setupButton.getY() && (gc.getHeight() - Mouse.getY()) <= setupButton.getY() + setupButton.getHeight())
+			/*if( Mouse.getX() >= setupButton.getX() && Mouse.getX() <= setupButton.getX() + setupButton.getWidth() && (gc.getHeight() - Mouse.getY()) >= setupButton.getY() && (gc.getHeight() - Mouse.getY()) <= setupButton.getY() + setupButton.getHeight())
 			{
 				setupButton.setHover();
 			}
 			else
 			{
 				setupButton.setUnselected();
-			}
+			}*/
 			break;
 		case PAUSE_MENU:
 			break;
@@ -162,8 +157,8 @@ public class JohnnyGame extends BasicGame implements InputProviderListener{
 			break;
 		case MAIN_MENU:
 			g.drawString("Main Menu", 100, 100);
-			setupButton.draw(g);
-			g.drawString("Set-Up", 120, 250);
+			//setupButton.draw(g);
+			//g.drawString("Set-Up", 120, 250);
 			break;
 		case PAUSE_MENU:
 			g.drawImage(background, 0, 0);
