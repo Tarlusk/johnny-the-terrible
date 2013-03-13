@@ -13,7 +13,7 @@ public class Circle extends Primitive
 	public float radius;
 	Image img;
 	
-	public Circle(int x, int y, int radius) 
+	public Circle(float x, float y, float radius) 
 	{
 		super(x, y);
 		this.radius = radius;
