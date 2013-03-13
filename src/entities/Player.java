@@ -88,7 +88,7 @@ public class Player extends MoveableEntity {
 		hitbox.x = x +7;
 		hitbox.y = y;
 	}
-	public MoveableEntity shoot(char c) throws SlickException {
+	public Bullet shoot(char c) throws SlickException {
 		switch (c)
 		{
 		case 'r':
