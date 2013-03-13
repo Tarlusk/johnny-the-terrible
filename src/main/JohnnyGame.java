@@ -1,5 +1,7 @@
 package main;
 
+import java.util.Vector;
+
 import linear.Vector2d;
 
 import org.lwjgl.input.Mouse;
@@ -19,6 +21,7 @@ import controls.ControlProvider;
 import collision.Box;
 import collision.Circle;
 import collision.Collider;
+import entities.MoveableEntity;
 import entities.Player;
 
 public class JohnnyGame extends BasicGame implements InputProviderListener{
@@ -28,13 +31,14 @@ public class JohnnyGame extends BasicGame implements InputProviderListener{
 	public static final int PAUSE_MENU = 2;
 	
 	private Image background;
-	private Image sun;
 	private Player player;
 	private Box ground;
 	private Circle sphere;
 	private Collider collider;
 	private int gameState = MAIN_MENU;
 	private MenuButton setupButton;
+	
+	Vector<MoveableEntity> moveables = new Vector<MoveableEntity>(10);
 
 	private ControlProvider provider;
 	
@@ -51,14 +55,13 @@ public class JohnnyGame extends BasicGame implements InputProviderListener{
 		//create collider
 		collider = new Collider();
 		background = new Image("res/space.jpg");
-		sun = new Image("res/sun.png");
 		//Set up controls
 		provider = new ControlProvider(gc.getInput());
 		provider.addListener(this);
 
 		player = new Player(0, 400);
 		
-		sphere = new Circle( 400, 360, 100);
+		sphere = new Circle( 400, 570, 100);
 		ground = new Box (0,550,800,50);
 		gc.setMaximumLogicUpdateInterval(50);
 		setupButton = new MenuButton(100, 200, 200, 100);
@@ -91,19 +94,13 @@ public class JohnnyGame extends BasicGame implements InputProviderListener{
 			{
 				player.direction = 0;
 			}
+			
 			//UPDATE
 			player.update(delta);
 			Vector2d gravityVector = new Vector2d(0, 0.03f);
 			
 			player.setDX(player.getDX() + gravityVector.x);
 			player.setDY(player.getDY() + gravityVector.y);
-			
-			/*
-			gravityVector = (new Vector2d( (sphere.x - block.getX() - block.width/2), sphere.y - block.getY() - block.height/2));
-			gravityVector = gravityVector.scale(10/(gravityVector.magnitude()*gravityVector.magnitudeSqr()));
-			block.setDX(block.getDX() + gravityVector.x);
-			block.setDY(block.getDY() + gravityVector.y);
-			*/
 			
 			Vector2d distVec = collider.getMinDistanceVector(player.hitbox, sphere);
 			player.setX(player.getX() + distVec.x);
@@ -126,6 +123,11 @@ public class JohnnyGame extends BasicGame implements InputProviderListener{
 				velocityVec = velocityVec.subtract(velocityVec.proj(distVec));
 				player.setDX(velocityVec.x);
 				player.setDY(velocityVec.y);
+			}
+			
+			for(MoveableEntity a : moveables)
+			{
+				a.update(delta);
 			}
 			break;
 		case MAIN_MENU:
@@ -154,6 +156,10 @@ public class JohnnyGame extends BasicGame implements InputProviderListener{
 			//g.drawImage(ship.img, 400, 100);
 			g.fillRect(ground.x, ground.y, ground.width, ground.height); 
 			//g.fillRect(box.x, box.y, box.width, box.height);
+			for(MoveableEntity a : moveables)
+			{
+				a.draw(g);
+			}
 			player.draw(g);
 			break;
 		case MAIN_MENU:
@@ -186,6 +192,38 @@ public class JohnnyGame extends BasicGame implements InputProviderListener{
 			if (command == provider.pause)
 			{
 				gameState = PAUSE_MENU;
+			}
+			if (command == provider.attackRight)
+			{
+				try {
+					moveables.add(player.shoot('r'));
+				} catch (SlickException e) {
+					e.printStackTrace();
+				}
+			}
+			if (command == provider.attackLeft)
+			{
+				try {
+					moveables.add(player.shoot('l'));
+				} catch (SlickException e) {
+					e.printStackTrace();
+				}
+			}
+			if (command == provider.attackUp)
+			{
+				try {
+					moveables.add(player.shoot('u'));
+				} catch (SlickException e) {
+					e.printStackTrace();
+				}
+			}
+			if (command == provider.attackDown)
+			{
+				try {
+					moveables.add(player.shoot('d'));
+				} catch (SlickException e) {
+					e.printStackTrace();
+				}
 			}
 			break;
 		case MAIN_MENU:
