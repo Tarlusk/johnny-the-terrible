@@ -88,5 +88,20 @@ public class Player extends MoveableEntity {
 		hitbox.x = x +7;
 		hitbox.y = y;
 	}
+	public MoveableEntity shoot(char c) throws SlickException {
+		switch (c)
+		{
+		case 'r':
+			return new Bullet(x + 13, y +12,.3f, 0);
+		case 'l':
+			return new Bullet(x + 13, y +12,-.3f, 0);
+		case 'u':
+			return new Bullet(x + 13, y +12,0, -.3f);
+		case 'd':
+			return new Bullet(x + 13, y +12,0, .3f);
+		}
+		
+		throw new SlickException("Invalid direction character");
+	}
 
 }
