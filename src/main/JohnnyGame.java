@@ -29,6 +29,7 @@ public class JohnnyGame extends BasicGame implements InputProviderListener{
 	public static final int MAIN_MENU = 0;
 	public static final int RUNNING = 1;
 	public static final int PAUSE_MENU = 2;
+	public static final Vector2d gravityVector = new Vector2d(0, 0.03f);
 	
 	private Image background;
 	private Player player;
@@ -95,14 +96,23 @@ public class JohnnyGame extends BasicGame implements InputProviderListener{
 				player.direction = 0;
 			}
 			
-			//UPDATE
-			player.update(delta);
-			Vector2d gravityVector = new Vector2d(0, 0.03f);
+			if (provider.isCommandControlDown(provider.jump))
+			{
+				player.jump();
+			}
 			
+			//UPDATE
+			//Pull player down
 			player.setDX(player.getDX() + gravityVector.x);
 			player.setDY(player.getDY() + gravityVector.y);
 			
+			//update player position
+			player.update(delta);
+			
+			//get vector distance needed to move player not to intersect sphere
 			Vector2d distVec = collider.getMinDistanceVector(player.hitbox, sphere);
+			
+			//move player
 			player.setX(player.getX() + distVec.x);
 			player.setY(player.getY() + distVec.y);
 			
@@ -112,6 +122,7 @@ public class JohnnyGame extends BasicGame implements InputProviderListener{
 				velocityVec = velocityVec.subtract(velocityVec.proj(distVec));
 				player.setDX(velocityVec.x);
 				player.setDY(velocityVec.y);
+				player.setJumpReady();
 			}
 			
 			distVec = collider.getMinDistanceVector(player.hitbox, ground);
@@ -123,6 +134,7 @@ public class JohnnyGame extends BasicGame implements InputProviderListener{
 				velocityVec = velocityVec.subtract(velocityVec.proj(distVec));
 				player.setDX(velocityVec.x);
 				player.setDY(velocityVec.y);
+				player.setJumpReady();
 			}
 			
 			for(MoveableEntity a : moveables)
@@ -185,10 +197,6 @@ public class JohnnyGame extends BasicGame implements InputProviderListener{
 		switch(gameState)
 		{
 		case RUNNING:
-			if (command == provider.jump)
-			{
-				player.setDY(-.5f);
-			}
 			if (command == provider.pause)
 			{
 				gameState = PAUSE_MENU;

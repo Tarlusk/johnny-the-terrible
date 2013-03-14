@@ -15,6 +15,7 @@ public class Player extends MoveableEntity {
 	public Image back;
 	public Animation runningLeft;
 	public Animation runningRight;
+	private boolean jumpReady = false;
 	
 	public Player() 
 	{
@@ -102,6 +103,16 @@ public class Player extends MoveableEntity {
 		}
 		
 		throw new SlickException("Invalid direction character");
+	}
+	public void jump() {
+		if(jumpReady)
+		{
+			dy = -.6f;
+			jumpReady = false;
+		}
+	}
+	public void setJumpReady() {
+		this.jumpReady = true;
 	}
 
 }
