@@ -116,13 +116,19 @@ public class JohnnyGame extends BasicGame implements InputProviderListener{
 			player.setX(player.getX() + distVec.x);
 			player.setY(player.getY() + distVec.y);
 			
+			player.setJumpUnready();
 			if(distVec.x != 0 || distVec.y != 0)
 			{
 				Vector2d velocityVec = new Vector2d(player.getDX(), player.getDY());
 				velocityVec = velocityVec.subtract(velocityVec.proj(distVec));
 				player.setDX(velocityVec.x);
 				player.setDY(velocityVec.y);
-				player.setJumpReady();
+				
+				//if character moved within 45 degrees of up
+				if (distVec.y < 0 && distVec.y < -Math.abs(distVec.x))
+				{
+					player.setJumpReady();
+				}
 			}
 			
 			distVec = collider.getMinDistanceVector(player.hitbox, ground);
@@ -134,7 +140,11 @@ public class JohnnyGame extends BasicGame implements InputProviderListener{
 				velocityVec = velocityVec.subtract(velocityVec.proj(distVec));
 				player.setDX(velocityVec.x);
 				player.setDY(velocityVec.y);
+				//if character moved within 45 degrees of up
+				if (distVec.y < 0 && distVec.y < -Math.abs(distVec.x))
+				{
 				player.setJumpReady();
+				}
 			}
 			
 			for(MoveableEntity a : moveables)

@@ -111,6 +111,10 @@ public class Player extends MoveableEntity {
 			jumpReady = false;
 		}
 	}
+	public void setJumpUnready() 
+	{
+			jumpReady = false;
+	}
 	public void setJumpReady() {
 		this.jumpReady = true;
 	}
